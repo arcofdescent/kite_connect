@@ -2,9 +2,9 @@ defmodule KiteConnectTest do
   use ExUnit.Case
 
   setup do
-    Application.put_env(:argus, :kite_api_endpoint, 'https://api.kite.trade')
-    Application.put_env(:argus, :kite_api_key, 'xx')
-    Application.put_env(:argus, :kite_api_secret, 'yyy')
+    Application.put_env(:kite_connect_app, :kite_api_endpoint, 'https://api.kite.trade')
+    Application.put_env(:kite_connect_app, :kite_api_key, 'xx')
+    Application.put_env(:kite_connect_app, :kite_api_secret, 'yyy')
   end
   
   test "gen_url" do

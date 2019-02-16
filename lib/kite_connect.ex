@@ -15,11 +15,11 @@ defmodule KiteConnect do
     "orders" => "orders",
   }
 
-  @api_key Application.get_env(:argus, :kite_api_key)
-  @api_secret Application.get_env(:argus, :kite_api_secret)
+  @api_key Application.get_env(:kite_connect_app, :kite_api_key)
+  @api_secret Application.get_env(:kite_connect_app, :kite_api_secret)
 
   def gen_url(module, a1 \\ "", a2 \\ "") do
-    api_endpoint = Application.get_env(:argus, :kite_api_endpoint)
+    api_endpoint = Application.get_env(:kite_connect_app, :kite_api_endpoint)
 
     case module do
       "quote.ltp" ->
