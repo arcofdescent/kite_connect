@@ -18,6 +18,11 @@ defmodule KiteConnect do
   @api_key Application.get_env(:kite_connect_app, :kite_api_key)
   @api_secret Application.get_env(:kite_connect_app, :kite_api_secret)
 
+  def set_access_token(request_token) do
+    {:ok, at} = gen_access_token(request_token)
+    KiteConnect.AccessToken.set(at)
+  end
+  
   def gen_url(module, a1 \\ "", a2 \\ "") do
     api_endpoint = Application.get_env(:kite_connect_app, :kite_api_endpoint)
 
@@ -64,11 +69,6 @@ defmodule KiteConnect do
     ]
   end
 
-  def set_access_token(request_token) do
-    {:ok, at} = gen_access_token(request_token)
-    KiteConnect.AccessToken.set(at)
-  end
-  
   defp gen_access_token(request_token) do
     checksum =
       Base.encode16(
