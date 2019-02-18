@@ -1,0 +1,3 @@
+
+* api_key and secret passed in as params, don't use config
+
