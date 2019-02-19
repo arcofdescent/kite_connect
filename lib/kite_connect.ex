@@ -16,22 +16,25 @@ defmodule KiteConnect do
   }
 
   def init(api_key, api_secret) do
-    KiteConnect.State.set({:api_key, api_key, :api_secret, api_secret})
+    KiteConnect.State.set(:api_key, api_key)
+    KiteConnect.State.set(:api_secret, api_secret)
   end
   
   def api_key do
-    {:api_key, api_key, :api_secret, api_secret} = KiteConnect.State.get
-    api_key
+    KiteConnect.State.get(:api_key)
   end
   
   def api_secret do
-    {:api_key, api_key, :api_secret, api_secret} = KiteConnect.State.get
-    api_secret
+    KiteConnect.State.get(:api_secret)
+  end
+  
+  def access_token do
+    KiteConnect.State.get(:access_token)
   end
   
   def set_access_token(request_token) do
     {:ok, at} = gen_access_token(request_token)
-    KiteConnect.AccessToken.set(at)
+    KiteConnect.State.set(:access_token, at)
   end
   
   def gen_url(module, a1 \\ "", a2 \\ "") do
@@ -68,7 +71,7 @@ defmodule KiteConnect do
   def gen_headers do
     [
       "X-Kite-Version": 3,
-      Authorization: "token #{@api_key}:#{KiteConnect.AccessToken.get()}"
+      Authorization: "token #{KiteConnect.api_key}:#{KiteConnect.access_token}"
     ]
   end
 
@@ -76,7 +79,7 @@ defmodule KiteConnect do
     [
      "Content-Type": "application/x-www-form-urlencoded",
       "X-Kite-Version": 3,
-      Authorization: "token #{@api_key}:#{KiteConnect.AccessToken.get()}"
+      Authorization: "token #{KiteConnect.api_key}:#{KiteConnect.access_token}"
     ]
   end
 
@@ -85,7 +88,7 @@ defmodule KiteConnect do
       Base.encode16(
         :crypto.hash(
           :sha256,
-          "#{@api_key}#{request_token}#{@api_secret}"
+          "#{KiteConnect.api_key}#{request_token}#{KiteConnect.api_secret}"
         )
       )
       |> String.downcase()
@@ -94,7 +97,7 @@ defmodule KiteConnect do
     headers = ["X-Kite-Version": 3, "Content-Type": "application/x-www-form-urlencoded"]
 
     body =
-      %{"api_key" => @api_key, "request_token" => request_token, "checksum" => checksum}
+      %{"api_key" => KiteConnect.api_key, "request_token" => request_token, "checksum" => checksum}
       |> URI.encode_query()
 
     res_body = KiteConnect.HTTP.post(url, body, headers)
