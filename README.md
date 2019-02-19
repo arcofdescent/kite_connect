@@ -32,8 +32,10 @@ file start `KiteConnect.State` as a worker.
 A sample iex session:
 
 ```
-$ iex -S mix
-Erlang/OTP 21 [erts-10.2.3] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe]
-
-Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> KiteConnect.init(your_api_key, your_api_secret)
+:ok
+iex(2)> KiteConnect.set_access_token(your_request_token)
+:ok
+iex(3)> KiteConnect.Quote.ltp("NSE:INFY")
+724.3
 ```

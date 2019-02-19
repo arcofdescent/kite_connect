@@ -1,6 +1,6 @@
 defmodule KiteConnect do
   @moduledoc """
-  KiteConnect module containing constants, common functionality and others
+  Elixir module for the Zerodha Kite Connect API
   """
 
   @module_map %{
