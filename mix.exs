@@ -4,7 +4,7 @@ defmodule KiteConnect.MixProject do
   def project do
     [
       app: :kite_connect,
-      version: "0.1.6",
+      version: "0.1.7",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       description: "Elixir module for the Zerodha Kite Connect API",
