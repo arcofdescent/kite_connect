@@ -1,4 +1,4 @@
-defmodule KiteConnect.AccessToken do
+defmodule KiteConnect.State do
   use GenServer
 
   ## API

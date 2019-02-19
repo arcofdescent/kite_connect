@@ -15,16 +15,27 @@ defmodule KiteConnect do
     "orders" => "orders",
   }
 
-  @api_key Application.get_env(:kite_connect_app, :kite_api_key)
-  @api_secret Application.get_env(:kite_connect_app, :kite_api_secret)
-
+  def init(api_key, api_secret) do
+    KiteConnect.State.set({:api_key, api_key, :api_secret, api_secret})
+  end
+  
+  def api_key do
+    {:api_key, api_key, :api_secret, api_secret} = KiteConnect.State.get
+    api_key
+  end
+  
+  def api_secret do
+    {:api_key, api_key, :api_secret, api_secret} = KiteConnect.State.get
+    api_secret
+  end
+  
   def set_access_token(request_token) do
     {:ok, at} = gen_access_token(request_token)
     KiteConnect.AccessToken.set(at)
   end
   
   def gen_url(module, a1 \\ "", a2 \\ "") do
-    api_endpoint = Application.get_env(:kite_connect_app, :kite_api_endpoint)
+    api_endpoint = "https://api.kite.trade"
 
     case module do
       "quote.ltp" ->
