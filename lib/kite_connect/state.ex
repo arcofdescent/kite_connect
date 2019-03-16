@@ -33,6 +33,6 @@ defmodule KiteConnect.State do
 
   @impl true
   def handle_cast({:set, k, v}, state) do
-    {:noreply, Map.replace(state, k, v)}
+    {:noreply, Map.replace!(state, k, v)}
   end
 end

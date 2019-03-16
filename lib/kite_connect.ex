@@ -41,6 +41,8 @@ defmodule KiteConnect do
   ```
   """
 
+  @api_version 3
+  
   @module_map %{
     "quote.ltp" => "quote/ltp",
     "quote.market" => "quote",
@@ -108,7 +110,7 @@ defmodule KiteConnect do
 
   def gen_headers do
     [
-      "X-Kite-Version": 3,
+      "X-Kite-Version": @api_version,
       Authorization: "token #{KiteConnect.api_key}:#{KiteConnect.access_token}"
     ]
   end
@@ -116,7 +118,7 @@ defmodule KiteConnect do
   def gen_headers_post do
     [
      "Content-Type": "application/x-www-form-urlencoded",
-      "X-Kite-Version": 3,
+      "X-Kite-Version": @api_version,
       Authorization: "token #{KiteConnect.api_key}:#{KiteConnect.access_token}"
     ]
   end
